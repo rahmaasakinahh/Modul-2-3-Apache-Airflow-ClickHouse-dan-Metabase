@@ -1,10 +1,52 @@
 ---
 
-# Task 0 : _Setup & Installation_
+# Setup & Installation
 
 ---
 
-hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
+`requirements.txt`
+
+<img width="664" height="482" alt="image" src="https://github.com/user-attachments/assets/e2f5c9ee-9adb-4cfb-85ed-2db0ff3c5545" />
+
+Isinya seluruh library Python yang dibutuhkan pipeline. Requirements yang digunakan sama dengan yang dipakai pada sesi hands-on.
+
+|Library|Versi|Fungsi|
+|---|---|---|
+|`pyspark`|3.5.1|Framework big data processing|
+|`clickhouse-driver`|0.2.7|Koneksi Python ke ClickHouse|
+|`pandas`|2.2.1|Manipulasi dan transformasi data|
+|`requests`|2.31.0|Mengambil data dari API|
+|`pyarrow`|15.0.2|Membaca dan menulis file Parquet|
+
+`Dockerfile`
+
+<img width="1094" height="710" alt="image" src="https://github.com/user-attachments/assets/e3ed6568-653d-418c-b82c-420fca876328" />
+
+digunakan untuk menyiapkan sebelum kerja Airflow, jadi memastikan semua library dan tools yang dibutuhkan pipeline sudah terinstall di dalamnya.
+
+|Bagian|Keterangan|
+|---|---|
+|`FROM apache/airflow:2.9.1-python3.11`|Base image Airflow versi 2.9.1 dengan Python 3.11|
+|`RUN apt-get install default-jre-headless`|Install Java untuk menjalankan Apache Spark|
+|`COPY requirements.txt`|Menyalin file requirements ke dalam container|
+|`RUN pip install -r requirements.txt`|Install semua library Python yang dibutuhkan|
+
+`docker-compose.yml`
+
+<img width="2372" height="2724" alt="image" src="https://github.com/user-attachments/assets/a93a7ba9-bd61-4ddc-a429-3b214de12eb9" />
+
+menjalankan semua service yang dibutuhkan pipeline dalam satu perintah. Terdapat 6 service yang berjalan bersamaan:
+
+|Service|Port|Fungsi|
+|---|---|---|
+|`postgres`| - |Database internal Airflow untuk menyimpan metadata|
+|`airflow-init`| - |Inisialisasi database dan membuat akun admin Airflow|
+|`airflow-webserver`|8080|Tampilan web Airflow untuk memantau pipeline|
+|`airflow-scheduler`| - |Menjalankan DAG sesuai jadwal yang ditentukan|
+|`clickhouse-server`|8123, 9000|Database warehouse tempat data order disimpan|
+|`metabase`|3000|Tampilan web untuk visualisasi dan dashboard|
+
+Semua service Airflow menggunakan konfigurasi yang sama (x-airflow-common), jadi folder dags/ dan data_lake/ di komputer lokal terhubung langsung ke dalam container sehingga perubahan file langsung terbaca tanpa di restart.
 
 ---
 
@@ -13,6 +55,10 @@ hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
 ---
 
 hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
+
+<img width="1918" height="1026" alt="image" src="https://github.com/user-attachments/assets/879ef40a-0c3a-4f69-b7bd-a361149109d7" />
+
+<img width="1918" height="1026" alt="image" src="https://github.com/user-attachments/assets/0be2025b-f30c-49fa-9af9-ab5d002d3b53" />
 
 ---
 
@@ -84,7 +130,7 @@ Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data ya
 
 ---
 
-# Task 3 : _Membuat Visualisasi & Questions di Metabase_
+# Task 3 : _Memuat Data ke ClickHouse_
 
 ---
 
@@ -145,8 +191,9 @@ Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data ya
 
 ---
 
-# Task 4 : _Membangun Dashboard di Metabase_
+# Task 4 : _Membuat Visualisasi & Questions di Metabase_
 
 ---
 
 hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
+
