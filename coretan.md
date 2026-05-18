@@ -60,6 +60,29 @@ Data diambil dari Orders API, lalu diproses secara berurutan oleh tiga task di A
 
 ---
 
+# Repository Structure
+
+---
+
+```
+MCI2026_Task2_Kelompok12/
+├── dags/
+│   ├── orders_pipeline.py        # DAG utama Airflow
+│   └── scripts/
+│       ├── fetch_orders.py       # Task 1: Fetch dari API
+│       ├── transform_orders.py   # Task 2: Transform & flatten
+│       └── load_orders.py        # Task 3: Load ke ClickHouse
+├── sql/
+│   ├── ddl.sql                   # DDL pembuatan tabel ClickHouse
+│   └── metabase_queries.sql      # Query visualisasi Metabase
+├── docker-compose.yml            # Setup semua service
+├── Dockerfile                    # Custom Airflow image
+├── requirements.txt              # Python dependencies
+└── README.md
+```
+
+---
+
 # Setup & Installation
 
 ---
