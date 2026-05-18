@@ -11,8 +11,28 @@
 
 ---
 
-Script ini membaca data mentah dari file Parquet hasil fetch_orders.py, lalu melakukan dua proses utama sebelum data masuk ke ClickHouse.
-Data mentah dibaca dan disimpan dalam format Parquet, format kolomar yang lebih efisien dibanding JSON atau CSV karena menyimpan tipe data secara eksplisit dan lebih cepat dibaca saat di-load ke ClickHouse.
+Membaca data mentah dari file Parquet hasil `fetch_orders.py`, lalu memrosesnya sebelum data masuk ke ClickHouse. Secara garis besar, script menjalankan tiga proses utama: flatten data bertingkat, membersihkan nilai yang tidak valid, dan menyimpan hasilnya ke file Parquet. Berikut tiap prosesnya:
+
+### Setup & Konfigurasi
+
+<img width="1510" height="672" alt="image" src="https://github.com/user-attachments/assets/e9678201-2cea-40fd-b616-59c5931fe4ae" />
+
+Mendefinisikan path input/output dan mengaktifkan logging agar setiap proses terekam di Airflow task logs.
+
+### Inisialisasi Fungsi & Membaca Data
+
+<img width="1588" height="710" alt="image" src="https://github.com/user-attachments/assets/8f794f2b-dc45-4a7f-a0af-3e261a4a8797" />
+
+Membaca file Parquet dari Data Lake, mengubahnya menjadi format yang bisa diproses baris per baris, dan menyiapkan dua wadah kosong untuk menampung hasil flatten nantinya.
+
+---
+
+Selanjutnya adalah menjalankan tiga proses utama: 
+1. flatten data bertingkat
+2. membersihkan nilai yang tidak valid
+3. menyimpan hasilnya ke file Parquet
+
+---
 
 ### 1. Flattening Nested Data
 
@@ -35,7 +55,7 @@ Saat inspeksi data, ditemukan nilai `"missing"` (berupa teks) pada kolom `aisle`
 
 ### 3. Output
 
-<img width="1512" height="368" alt="image" src="https://github.com/user-attachments/assets/5b858d4f-733e-48a8-8c8b-3cecffb13b8d" />
+<img width="1512" height="482" alt="image" src="https://github.com/user-attachments/assets/4716beff-a0ef-494f-a5e7-4a5c8a27c008" />
 
 Hasil transform disimpan sebagai dua file Parquet terpisah, dilanjut dengan di-load ke ClickHouse di next step.
 
@@ -43,6 +63,14 @@ Hasil transform disimpan sebagai dua file Parquet terpisah, dilanjut dengan di-l
 |---|---|
 |`orders.parquet`|Data level order yang sudah di-flatten|
 |`order_items.parquet`|Data detail produk per order|
+
+---
+
+### Logging & Error Handling
+
+<img width="2350" height="596" alt="image" src="https://github.com/user-attachments/assets/283f9772-05e8-4de9-97a8-a4a0c242cafc" />
+
+Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data yang berhasil diproses. Kalau ada yang error di tengah jalan, pesan errornya langsung dicatat dan pipeline berhenti.
 
 # Task 3 : _Membuat Visualisasi & Questions di Metabase_
 
