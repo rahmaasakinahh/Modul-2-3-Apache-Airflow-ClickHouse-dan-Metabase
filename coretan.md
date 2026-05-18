@@ -297,6 +297,11 @@ Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data ya
 
 hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
 
+<img width="1480" height="807" alt="image" src="https://github.com/user-attachments/assets/23435ea4-41b2-4147-855c-1992e3acdc2e" />
+<img width="1482" height="573" alt="image" src="https://github.com/user-attachments/assets/dacb4264-5133-43a9-992b-bf52ce84e551" />
+<img width="1470" height="637" alt="image" src="https://github.com/user-attachments/assets/5770d683-8ef1-46b9-8ff8-5749d94a2d97" />
+<img width="1481" height="761" alt="image" src="https://github.com/user-attachments/assets/0769addc-57e4-4665-8568-f1a9c91ce140" />
+
 
 ---
 
