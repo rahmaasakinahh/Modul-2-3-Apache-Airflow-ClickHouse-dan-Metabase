@@ -1,8 +1,18 @@
+---
+
 # Task 0 : _Setup & Installation_
 
 ---
 
+hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
+
+---
+
 # Task 1 : _Merancang Apache Airflow DAG_
+
+---
+
+hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
 
 ---
 
@@ -72,10 +82,18 @@ Hasil transform disimpan sebagai dua file Parquet terpisah, dilanjut dengan di-l
 
 Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data yang berhasil diproses. Kalau ada yang error di tengah jalan, pesan errornya langsung dicatat dan pipeline berhenti.
 
+---
+
 # Task 3 : _Membuat Visualisasi & Questions di Metabase_
+
+---
+
+hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
 
 ---
 
 # Task 4 : _Membangun Dashboard di Metabase_
 
 ---
+
+hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
