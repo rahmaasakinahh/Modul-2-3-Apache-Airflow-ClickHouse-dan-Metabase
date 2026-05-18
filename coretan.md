@@ -338,3 +338,28 @@ Data dari API bentuknya bertingkat jadi 1 order bisa punya banyak produk di dala
 
 - `days_since_prior_order` menggunakan `Nullable(Float32`) karena order pertama user kosong karena belum ada order sebelumnya.
 - `aisle` dan `department` menggunakan `Nullable(String)` karena beberapa produk tidak memiliki data `aisle` dan `department`.
+
+---
+
+# Kesimpulan
+
+---
+
+Pipeline ini berhasil menjalankan alur data end-to-end mulai dari pengambilan data dari API, transformasi, hingga visualisasi dalam bentuk dashboard. berikut yang sudah berhasil diselesaikan:
+
+- Data berhasil diambil dari Orders API dan disimpan dalam format Parquet
+- Data yang awalnya bertingkat berhasil dipecah jadi 2 tabel yang rapi di ClickHouse
+- Nilai `"missing"` pada kolom `aisle` dan `department` berhasil ditemukan dan diperbaiki
+- Pipeline aman dijalankan berkali-kali tanpa menyebabkan data dobel
+- 6 visualisasi berhasil dibuat di Metabase dan disusun dalam satu dashboard
+
+---
+
+# Kontribusi Kelompok
+
+---
+
+|Anggota Kelompok|NRP|Kontribusi|keterangan|
+|---|---|---|---|
+|Nasyita Larashati E.|5025241201|||
+|Rahma Sakinah|5025241222|||
