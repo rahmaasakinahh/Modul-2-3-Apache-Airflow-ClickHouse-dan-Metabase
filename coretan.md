@@ -42,6 +42,22 @@ Data diambil dari Orders API, lalu diproses secara berurutan oleh tiga task di A
 
 ---
 
+# Tech Stack
+
+---
+
+|Tool|Versi|Fungsi|
+|---|---|---|
+|Apache Airflow|2.9.1|Mengatur dan menjalankan pipeline secara otomatis|
+|ClickHouse|Latest|Menyimpan data order sebagai data warehouse|
+|Metabase|Latest|Menampilkan data dalam bentuk visualisasi dan dashboard|
+|Docker| - |Menjalankan semua service dalam container|
+|Python|3.11|Bahasa pemrograman untuk semua script pipeline|
+|Pandas|2.2.1|Membaca, memanipulasi, dan menyimpan data|
+|clickhouse-driver|0.2.7|Menghubungkan Python ke ClickHouse|
+|PyArrow|15.0.2|Membaca dan menulis file Parquet|
+|Requests|2.31.0|Mengambil data dari API|
+
 ---
 
 # Setup & Installation
