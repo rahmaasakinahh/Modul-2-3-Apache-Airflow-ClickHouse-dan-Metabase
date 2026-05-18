@@ -1,3 +1,14 @@
+# **Orders Analytics Pipeline**
+
+---
+
+> Seleksi Calon Admin MCI 2026 — Modul 2 & 3 | Kelompok 12 Pipeline Orchestration & Data Visualization
+
+|Anggota Kelompok|NRP|
+|---|---|
+|Nasyita Larashati Ertyananda|5025241201|
+|Rahma Sakinah|5025241222|
+
 ---
 
 # Setup & Installation
