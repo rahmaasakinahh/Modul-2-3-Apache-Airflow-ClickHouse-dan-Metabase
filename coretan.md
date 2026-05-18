@@ -11,11 +11,11 @@
 |Nasyita Larashati Ertyananda|5025241201|
 |Rahma Sakinah|5025241222|
 
-# **Orders Analytics Pipeline**
-
 ---
 
 # **Architecture**
+
+---
 
 terdiri dari empat komponen utama yang terhubung secara berurutan:
 
