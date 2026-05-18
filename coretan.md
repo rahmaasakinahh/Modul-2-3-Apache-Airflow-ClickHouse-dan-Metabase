@@ -133,6 +133,23 @@ Semua service Airflow menggunakan konfigurasi yang sama (x-airflow-common), jadi
 
 ---
 
+# Data Quality
+
+---
+
+Saat memeriksa data dari API, ditemukan dua kondisi yang menurut kami perlu diperhatikan:
+
+|Temuan|Kolom|Penanganan|
+|---|---|---|
+|Nilai `"missing"` (berupa teks)|`aisle`, `department`|Diganti menjadi `NULL` di tahap transform|
+|Nilai `null`|`days_since_prior_order`|Dibiarkan `NULL` karena kemungkinan user belum pernah order sebelumnya|
+
+Beberapa produk punya kolom `aisle` dan `department` yang isinya teks `"missing"` tapi bukan benar-benar kosong, tapi memang tertulis kata "missing". Ini diganti jadi `NULL`.
+
+Kolom `days_since_prior_order` yang kosong itu dibiarkan karena kolom ini menyimpan berapa hari sejak order terakhir, jadi kalau user baru pertama kali order, otomatis kosong karena belum ada order sebelumnya.
+
+---
+
 # Task 1 : _Merancang Apache Airflow DAG_
 
 ---
@@ -280,3 +297,44 @@ Kalau semua proses berhasil, script mencetak pesan sukses beserta jumlah data ya
 
 hafipwebguorbngaklrnbguebobgrgboueanourhgakslnioowbrvwirpbgh
 
+
+---
+
+# Database Schema
+
+---
+
+Data dari API bentuknya bertingkat jadi 1 order bisa punya banyak produk di dalamnya. Karena ClickHouse tidak bisa menyimpan data seperti itu, data dipecah jadi 2 tabel yang dihubungkan lewat `order_id`.
+
+`mci_db.orders`
+
+<img width="1018" height="786" alt="image" src="https://github.com/user-attachments/assets/606d8075-86ae-4755-a467-88047e256b6c" />
+
+|Kolom|Tipe|Keterangan|
+|---|---|---|
+|`order_id`|Int32|ID unik setiap order|
+|`user_id`|Int32|ID user yang melakukan order|
+|`order_number`|Int32|Urutan order ke-berapa untuk user ini|
+|`order_dow`|Int8|Hari saat order (0 = Minggu, 6 = Sabtu)|
+|`order_hour_of_day`|Int8|Jam saat order (0-23)|
+|`days_since_prior_order`|Nullable(Float32)|Jarak hari dari order sebelumnya|
+|`eval_set`|String|Kategori dataset|
+
+`mci_db.order_items`
+
+<img width="1034" height="786" alt="image" src="https://github.com/user-attachments/assets/24b62aaf-7414-4568-b3ee-f97eb33c915f" />
+
+|Kolom|Tipe|Keterangan|
+|---|---|---|
+|`order_id`|Int32|ID order (penghubung ke tabel orders)|
+|`product_id`|Int32|ID produk|
+|`product_name`|String|Nama produk|
+|`aisle_id`|Int32|ID lorong|
+|`aisle`|Nullable(String)|Nama lorong|
+|`department_id`|Int32|ID departemen|
+|`department`|Nullable(String)|Nama departemen|
+|`add_to_cart_order`|Int32|Urutan produk ditambahkan ke keranjang|
+|`reordered`|Int8|Pernah dipesan sebelumnya (0 = tidak, 1 = ya)|
+
+- `days_since_prior_order` menggunakan `Nullable(Float32`) karena order pertama user kosong karena belum ada order sebelumnya.
+- `aisle` dan `department` menggunakan `Nullable(String)` karena beberapa produk tidak memiliki data `aisle` dan `department`.
