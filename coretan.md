@@ -1,3 +1,5 @@
+---
+
 # **Orders Analytics Pipeline**
 
 ---
@@ -8,6 +10,37 @@
 |---|---|
 |Nasyita Larashati Ertyananda|5025241201|
 |Rahma Sakinah|5025241222|
+
+# **Orders Analytics Pipeline**
+
+---
+
+# **Architecture**
+
+terdiri dari empat komponen utama yang terhubung secara berurutan:
+
+```
+[Orders API]
+     │
+     ▼
+[Apache Airflow]
+     │
+     ▼
+fetch_orders → transform_orders → load_to_clickhouse
+                                        │
+                                        ▼
+                                  [ClickHouse]
+                                  ├── mci_db.orders
+                                  └── mci_db.order_items
+                                        │
+                                        ▼
+                                   [Metabase]
+                              Orders Analytics Dashboard
+```
+
+Data diambil dari Orders API, lalu diproses secara berurutan oleh tiga task di Airflow (fetch, transform, dan load). Setelah data masuk ke ClickHouse, Metabase membacanya dan menampilkan hasilnya dalam bentuk dashboard.
+
+---
 
 ---
 
